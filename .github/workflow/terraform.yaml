@@ -15,9 +15,9 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 1.1.0  # Adjust to the version you're using
-        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        region: "your-aws-region"
+        aws_access_key_id: ${{ secrets.RAVI_AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.RAVI_AWS_SECRET_ACCESS_KEY }}
+        region: ${{ secrets.RAVI_AWS_REGION }}
 
     - name: Terraform Init
       run: terraform init

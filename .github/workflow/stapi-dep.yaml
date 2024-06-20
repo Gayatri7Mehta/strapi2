@@ -22,9 +22,9 @@ jobs:
     - name: SSH into EC2 instance and deploy Strapi
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.EC2_PUBLIC_IP }}
+        host: ${{ secrets.RAVI_EC2_PUBLIC_IP }}
         username: ubuntu
-        key: ${{ secrets.PRIVATE_SSH_KEY }}
+        key: ${{ secrets.RAVI_PRIVATE_SSH_KEY }}
         script: |
           cd /srv/strapi
           sudo git pull origin main
