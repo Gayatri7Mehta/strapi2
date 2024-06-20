@@ -1,0 +1,39 @@
+name: Deploy Strapi Application
+
+on:
+  push:
+    branches:
+      - main 
+  pull_request:
+    branches:
+      - main  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install SSH client
+      run: sudo apt-get install openssh-client
+
+    - name: SSH into EC2 instance and deploy Strapi
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_PUBLIC_IP }}
+        username: ubuntu
+        key: ${{ secrets.PRIVATE_SSH_KEY }}
+        script: |
+          cd /srv/strapi
+          sudo git pull origin main
+          sudo npm install         
+          # Check if Strapi is already managed by pm2
+          if ! sudo pm2 status | grep -q "strapi-app"; then
+            echo "Strapi is not managed by pm2. Starting Strapi with pm2..."
+            sudo pm2 start "npm run start --silent" --name "strapi-app"
+          else
+            echo "Strapi is already managed by pm2. Restarting Strapi..."
+            sudo pm2 restart strapi-app
+          fi
