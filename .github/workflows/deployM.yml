@@ -1,0 +1,36 @@
+name: Terraform_Manual
+on:
+  workflow_dispatch:
+jobs:
+  terraform:
+    name: "Terraform"
+    runs-on: ubuntu-latest
+    env: 
+      GAYATRI_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      GAYATRI_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    defaults:
+      run:
+        working-directory: terraform
+    
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.0.11 
+          terraform_wrapper: false
+           
+      
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
