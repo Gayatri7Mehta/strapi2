@@ -6,8 +6,8 @@ jobs:
     name: "Terraform"
     runs-on: ubuntu-latest
     env: 
-      GAYATRI_ACCESS_KEY: ${{ secrets.GAYATRI_ACCESS_KEY }}
-      GAYATRI_SECRET_ACCESS_KEY: ${{ secrets.GAYATRI_SECRET_ACCESS_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.GAYATRI_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.GAYATRI_SECRET_ACCESS_KEY }}
     defaults:
       run:
         working-directory: terraform
