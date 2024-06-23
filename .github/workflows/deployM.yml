@@ -6,8 +6,8 @@ jobs:
     name: "Terraform"
     runs-on: ubuntu-latest
     env: 
-      GAYATRI_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      GAYATRI_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      GAYATRI_ACCESS_KEY: ${{ secrets.GAYATRI_ACCESS_KEY }}
+      GAYATRI_SECRET_ACCESS_KEY: ${{ secrets.GAYATRI_SECRET_ACCESS_KEY }}
     defaults:
       run:
         working-directory: terraform
@@ -20,7 +20,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.0.11 
+          terraform_version: 1.0.11 # Specify your Terraform version here
           terraform_wrapper: false
            
       
@@ -34,3 +34,4 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+      
